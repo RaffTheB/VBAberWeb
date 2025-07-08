@@ -42,11 +42,15 @@ header {
   cursor: pointer;
 }
 
-#main {
-  display: flex;
-  flex-grow: 1;
-  height: 100%;
+/* Sidebar nascosta */
+#main.sidebar-hidden #sidebar {
+  width: 0;
+  padding: 0;
+  border: none;
   overflow: hidden;
+}
+#main.sidebar-hidden #editorArea {
+  width: 100%;
 }
 
 #sidebar {
@@ -55,6 +59,17 @@ header {
   padding: 1rem;
   border-right: 1px solid #ccc;
   overflow-y: auto;
+}
+
+#sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  cursor: ew-resize;
+  z-index: 10;
 }
 
 .project-name {
@@ -128,32 +143,39 @@ header {
   font-family: Consolas, monospace;
 }
 
-/* Debug Panel migliorato */
-
+/* Toggle del debug */
 #debugPanel {
   position: absolute;
   bottom: 0;
   width: 100%;
   background-color: #f0f0f0;
   border-top: 1px solid #ccc;
-  max-height: 150px;
-  transition: max-height 0.3s ease;
+  height: 150px;
+  transition: height 0.3s ease;
   display: flex;
   flex-direction: column;
+  resize: vertical;
 }
 
 #debugPanel.collapsed {
-  max-height: 20px;
+  height: 30px;
 }
 
 #debugToggle {
   background-color: #ddd;
   text-align: center;
-  padding: 4px;
-  font-size: 0.8rem;
+  padding: 6px;
+  font-size: 0.85rem;
   cursor: pointer;
   user-select: none;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  width: fit-content;
+  margin: 0 auto -1px auto;
 }
+
 
 #debugOutput {
   padding: 0.5rem 1rem;
@@ -215,5 +237,7 @@ body.dark #debugPanel {
 
 body.dark #debugToggle {
   background-color: #333;
-  color: #aaa;
+  color: #ccc;
+  border-color: #555;
 }
+
