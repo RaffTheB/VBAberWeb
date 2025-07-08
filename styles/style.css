@@ -47,24 +47,39 @@ header {
 }
 
 #sidebar {
-  width: 200px;
+  width: 240px;
   background-color: #f3f3f3;
   padding: 1rem;
   border-right: 1px solid #ccc;
+  overflow-y: auto;
 }
 
-#sidebar h3 {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
+.project-name {
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
-#moduleList li {
+.tree {
   list-style: none;
+  padding-left: 0;
+}
+
+.tree .folder {
+  font-weight: bold;
   margin-bottom: 0.5rem;
+}
+
+.tree .folder ul {
+  padding-left: 1rem;
+}
+
+.tree .file {
+  margin-left: 1rem;
+  margin-bottom: 0.25rem;
   cursor: pointer;
 }
 
-#editorContainer {
+#editorArea {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -104,6 +119,20 @@ header {
   font-family: Consolas, monospace;
 }
 
+#debugPanel {
+  background-color: #f9f9f9;
+  border-top: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+  height: 100px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+
+.debug-header {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
 /* Tema scuro */
 
 body.dark {
@@ -127,7 +156,7 @@ body.dark #sidebar {
   border-right: 1px solid #444;
 }
 
-body.dark #editorContainer {
+body.dark #editorArea {
   background-color: #1e1e1e;
 }
 
@@ -148,4 +177,10 @@ body.dark .tab {
 body.dark .tab.active {
   background-color: #1e1e1e;
   border-color: #555;
+}
+
+body.dark #debugPanel {
+  background-color: #252526;
+  color: #ccc;
+  border-top: 1px solid #444;
 }
