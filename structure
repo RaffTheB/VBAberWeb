@@ -1,0 +1,13 @@
+VBAberWeb_Parallel/
+│
+├── index.html           # Pagina principale
+├── manifest.json        # Manifest PWA
+├── service-worker.js    # Service worker per offline
+├── styles/
+│   └── style.css        # Stili globali
+├── scripts/
+│   ├── main.js          # Logica principale app
+│   ├── editor.js        # Editor di codice (colorazione ecc.)
+│   └── pwa.js           # Registrazione service worker, PWA setup
+└── assets/
+    └── logo.png         # Logo app
