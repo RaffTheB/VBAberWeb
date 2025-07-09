@@ -1,274 +1,77 @@
-/* Esempio base funzionante */
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+/* BASE & LAYOUT */
+* { box-sizing: border-box; margin:0; padding:0; }
 html, body {
-  margin: 0;
-  padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0)
-           env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
-  height: 100%;
-  overflow: hidden;        /* evita scroll della pagina */
-  font-family: Consolas, monospace;
-  background-color: white;
-  color: black;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+           env(safe-area-inset-bottom) env(safe-area-inset-left);
+  height:100%; overflow:hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+  background:#fff; color:#000;
 }
-
-body {
-  font-family: 'Consolas', monospace;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  color: black;
-}
-
-#app {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
+body.dark { background:#1e1e1e; color:#ddd; }
 header {
-  background-color: #0078d7;
-  color: white;
-  padding: 0.75rem 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px; background:#0078d7;
 }
-
-.logo {
-  font-weight: bold;
-  font-size: 1.2rem;
+.toolbar-left, .toolbar-right {
+  flex:0 0 auto;
 }
-
-.toolbar button {
-  background: white;
-  color: #0078d7;
-  border: none;
-  padding: 0.5rem;
-  border-radius: 4px;
-  cursor: pointer;
+.logo { font-size:1.2rem; font-weight:bold; color:#fff; }
+header button {
+  background:rgba(255,255,255,0.2); border:none; padding:8px; margin:0 5px;
+  border-radius:8px; font-size:1.2rem; cursor:pointer;
 }
-
-#main {
-  height: 100vh;
-  overflow: hidden;        /* niente scroll esterno */
-  display: flex;
-  flex-direction: row;
-}
-
-#sidebarToggle {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  color: white;
-  cursor: pointer;
-  padding: 0.5rem;
-  transition: background-color 0.3s ease;
-  border-radius: 6px;
-}
-
-#sidebarToggle:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
+header button:hover { background:rgba(255,255,255,0.3); }
+#main { display:flex; height:calc(100vh - 52px); transition:margin-left .3s ease; }
 #sidebar {
-  width: 240px;
-  background-color: #f5f5f7;
-  border-right: 1px solid #ccc;
-  padding: 1rem;
-  overflow-y: auto;
-  transition: transform 0.3s ease-in-out;
-  will-change: transform;
-  z-index: 10;
+  width:240px; background:#f5f5f7; padding:1rem; overflow-y:auto;
+  transition:transform .3s ease; transform:translateX(0);
 }
-
-.sidebar-hidden #sidebar {
-  transform: translateX(-100%);
-}
-
-.project-name {
-  font-weight: bold;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  color: #333;
-}
-
-.tree {
-  list-style: none;
-  padding-left: 0;
-  font-size: 0.95rem;
-}
-
-.tree .folder {
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.tree .folder ul {
-  padding-left: 1rem;
-  margin-top: 0.3rem;
-}
-
-.tree .file {
-  margin-left: 0.5rem;
-  margin-bottom: 0.3rem;
-  cursor: pointer;
-}
-
+.sidebar-hidden #sidebar { transform:translateX(-100%); }
 #editorArea {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
+  flex:1; display:flex; flex-direction:column; overflow:hidden;
 }
-
 #tabs {
-  background-color: #e1e1e1;
-  padding: 0.5rem 1rem;
-  border-bottom: 1px solid #ccc;
+  background:#e1e1e1; padding:8px; display:flex;
 }
-
 .tab {
-  display: inline-block;
-  margin-right: 1rem;
-  padding: 0.3rem 0.7rem;
-  background: #d0d0d0;
-  border-radius: 4px;
-  cursor: pointer;
+  background:#d0d0d0; margin-right:8px; padding:4px 8px; border-radius:6px;
+  cursor:pointer;
 }
+.tab.active { background:#fff; border:1px solid #ccc; border-bottom:none; }
+body.dark #tabs { background:#2d2d2d; }
 
-.tab.active {
-  background-color: white;
-  border: 1px solid #ccc;
-  border-bottom: none;
-}
-
+/* EDITOR */
 #codeEditor {
-  flex-grow: 1;
-  resize: none;
-  overflow-y: auto;        /* scroll solo nel codice */
-  padding: 1rem;
-  font-size: 1rem;
-  font-family: Consolas, monospace;
-  border: none;
-  outline: none;
-  background: white;
-  color: black;
+  flex:1; padding:12px; font-size:1rem; overflow:auto;
+  background:#fff; color:#000; border:none;
 }
+body.dark #codeEditor { background:#1e1e1e; color:#ddd; }
 
+/* DEBUG PANEL */
 #debugPanel {
-  position: fixed;        /* fissato sempre in basso */
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  max-height: 200px;      /* altezza massima quando aperto */
-  height: 30px;           /* altezza minima quando chiuso */
-  background-color: #1e1e1e;
-  color: #eee;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  box-shadow: 0 -3px 10px rgba(0,0,0,0.7);
-  display: flex;
-  flex-direction: column;
-  transition: height 0.35s ease;
-  overflow: hidden;
-  font-family: Consolas, monospace;
-  z-index: 9999;          /* sopra tutto */
+  position:fixed; bottom:0; left:0; width:100%;
+  height:0; background:#333; color:#eee; overflow:hidden;
+  border-top-left-radius:12px; border-top-right-radius:12px;
+  box-shadow:0 -4px 12px rgba(0,0,0,0.6);
+  transition:height .35s ease;
+  z-index:999;
 }
-
-#debugPanel.expanded {
-  height: 200px;
-  overflow-y: auto;
+#debugPanel.expanded { height:200px; }
+#debugToggleBar {
+  display:flex; justify-content:space-between; align-items:center;
+  background:#444; padding:6px 12px; border-top-left-radius:12px;
+  border-top-right-radius:12px;
 }
-
 #debugToggle {
-  background-color: #333;
-  color: #ddd;
-  padding: 6px 12px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  user-select: none;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  box-shadow: inset 0 -3px 5px rgba(0,0,0,0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease;
+  cursor:pointer; font-size:1rem;
 }
-
-#debugToggle:hover {
-  background-color: #555;
+#debugExpand {
+  background:none; border:none; font-size:1.2rem; cursor:pointer;
 }
-
 #debugOutput {
-  padding: 0.5rem 1rem;
-  overflow-y: auto;
-  font-size: 0.9rem;
+  flex:1; padding:8px 12px; overflow:auto; font-size:0.9rem;
 }
 
-/* Tema scuro */
-
-body.dark {
-  background-color: #1e1e1e;
-  color: #ddd;
-}
-
-body.dark header {
-  background-color: #333;
-  color: #fff;
-}
-
-body.dark .toolbar button {
-  background-color: #444;
-  color: white;
-}
-
-body.dark #sidebar {
-  background-color: #2d2d2d;
-  color: #ddd;
-  border-right: 1px solid #444;
-}
-
-body.dark #editorArea {
-  background-color: #1e1e1e;
-}
-
-body.dark #codeEditor {
-  background-color: #1e1e1e;
-  color: #ddd;
-}
-
-body.dark #tabs {
-  background-color: #2d2d2d;
-}
-
-body.dark .tab {
-  background-color: #444;
-  color: #ddd;
-}
-
-body.dark .tab.active {
-  background-color: #1e1e1e;
-  border-color: #555;
-}
-
-body.dark #debugPanel {
-  background-color: #252526;
-  color: #ccc;
-  border-top: 1px solid #444;
-}
-
-body.dark #debugToggle {
-  background-color: #333;
-  color: #aaa;
-}
+/* DARK MODE */
+body.dark #debugPanel { background:#222; }
+body.dark #debugToggleBar { background:#2a2a2a; }
