@@ -8,9 +8,18 @@ const debugOutput = document.getElementById('debugOutput');
 debugOutput.textContent = 'Editor pronto. Carica un modulo per iniziare.';
 
 // Toggle debug
-document.getElementById('debugToggle').addEventListener('click', () => {
-  const panel = document.getElementById('debugPanel');
-  panel.classList.toggle('collapsed');
+const sidebarToggle = document.getElementById('sidebarToggle');
+const main = document.getElementById('main');
+
+sidebarToggle.addEventListener('click', () => {
+  main.classList.toggle('sidebar-hidden');
+
+  // Cambia l’icona del pulsante per maggiore chiarezza
+  if (main.classList.contains('sidebar-hidden')) {
+    sidebarToggle.textContent = '➡️'; // Sidebar nascosta
+  } else {
+    sidebarToggle.textContent = '🧭'; // Sidebar visibile
+  }
 });
 
 // Toggle sidebar
