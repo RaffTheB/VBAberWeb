@@ -62,12 +62,34 @@ header {
   flex-direction: row;
 }
 
+#sidebarToggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: background-color 0.3s ease;
+  border-radius: 6px;
+}
+
+#sidebarToggle:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
 #sidebar {
   width: 240px;
-  background-color: #f4f4f4;
-  padding: 1rem;
+  background-color: #f5f5f7;
   border-right: 1px solid #ccc;
+  padding: 1rem;
   overflow-y: auto;
+  transition: transform 0.3s ease-in-out;
+  will-change: transform;
+  z-index: 10;
+}
+
+.sidebar-hidden #sidebar {
+  transform: translateX(-100%);
 }
 
 .project-name {
