@@ -105,3 +105,11 @@ body.dark header button:hover { background: rgba(255,255,255,0.2); }
 /* SWIPE AREA */
 #sidebar { touch-action: pan-y; }
 #main { touch-action: none; }
+
+#debugPanel.fullscreen {
+  position: fixed;
+  top: 0;
+  height: 100vh !important;
+  border-radius: 0;
+  z-index: 9999;
+}
