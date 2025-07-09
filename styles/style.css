@@ -6,6 +6,17 @@
   padding: 0;
 }
 
+html, body {
+  margin: 0;
+  padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0)
+           env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+  height: 100%;
+  overflow: hidden;        /* evita scroll della pagina */
+  font-family: Consolas, monospace;
+  background-color: white;
+  color: black;
+}
+
 body {
   font-family: 'Consolas', monospace;
   height: 100vh;
@@ -45,10 +56,10 @@ header {
 }
 
 #main {
+  height: 100vh;
+  overflow: hidden;        /* niente scroll esterno */
   display: flex;
-  flex-grow: 1;
-  height: 100%;
-  overflow: hidden;
+  flex-direction: row;
 }
 
 #sidebar {
@@ -93,7 +104,8 @@ header {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  position: relative;
+  height: 100%;
+  overflow: hidden;
 }
 
 #tabs {
@@ -119,42 +131,61 @@ header {
 
 #codeEditor {
   flex-grow: 1;
-  width: 100%;
+  resize: none;
+  overflow-y: auto;        /* scroll solo nel codice */
   padding: 1rem;
   font-size: 1rem;
+  font-family: Consolas, monospace;
   border: none;
   outline: none;
-  resize: none;
   background: white;
   color: black;
-  font-family: Consolas, monospace;
 }
-
-/* Debug Panel migliorato */
 
 #debugPanel {
-  position: absolute;
+  position: fixed;        /* fissato sempre in basso */
   bottom: 0;
+  left: 0;
   width: 100%;
-  background-color: #f0f0f0;
-  border-top: 1px solid #ccc;
-  max-height: 150px;
-  transition: max-height 0.3s ease;
+  max-height: 200px;      /* altezza massima quando aperto */
+  height: 30px;           /* altezza minima quando chiuso */
+  background-color: #1e1e1e;
+  color: #eee;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0 -3px 10px rgba(0,0,0,0.7);
   display: flex;
   flex-direction: column;
+  transition: height 0.35s ease;
+  overflow: hidden;
+  font-family: Consolas, monospace;
+  z-index: 9999;          /* sopra tutto */
 }
 
-#debugPanel.collapsed {
-  max-height: 20px;
+#debugPanel.expanded {
+  height: 200px;
+  overflow-y: auto;
 }
 
 #debugToggle {
-  background-color: #ddd;
-  text-align: center;
-  padding: 4px;
-  font-size: 0.8rem;
+  background-color: #333;
+  color: #ddd;
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
   user-select: none;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: inset 0 -3px 5px rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+#debugToggle:hover {
+  background-color: #555;
 }
 
 #debugOutput {
