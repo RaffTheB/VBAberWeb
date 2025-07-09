@@ -10,10 +10,12 @@
 <body>
   <div id="app">
     <header>
+      <div class="toolbar-left">
+        <button id="sidebarToggle" title="Apri/Chiudi sidebar">🧭</button>
+      </div>
       <div class="logo">VBAber Web</div>
-      <div class="toolbar">
-        <button id="sidebarToggle" title="Nascondi/Riprendi sidebar">🧭</button>
-        <button id="themeToggle">☀️ / 🌙</button>
+      <div class="toolbar-right">
+        <button id="themeToggle" title="Cambia tema">🌙</button>
       </div>
     </header>
 
@@ -39,19 +41,19 @@
         <div id="tabs">
           <span class="tab active">Modulo1.bas</span>
         </div>
-
         <textarea id="codeEditor" spellcheck="false"></textarea>
-
-        <div id="debugPanel">
-          <div id="debugToggle">🔼 Mostra Debug</div>
-          <div id="debugOutput">Nessun output</div>
-        </div>
       </section>
+    </div>
+
+    <div id="debugPanel">
+      <div id="debugToggleBar">
+        <button id="debugExpand" title="Espandi a schermo intero">⤢</button>
+        <div id="debugToggle">🔽 Mostra Debug</div>
+      </div>
+      <div id="debugOutput">Nessun output</div>
     </div>
   </div>
 
-  <script src="scripts/editor.js"></script>
-  <script src="scripts/pwa.js"></script>
-  <script src="scripts/main.js"></script>
+  <script src="scripts/main.js" defer></script>
 </body>
 </html>
