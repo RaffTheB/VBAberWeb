@@ -45,27 +45,14 @@ document.addEventListener('mouseup', () => {
   document.body.style.cursor = 'default';
 });
 
-// Drag verticale per debug panel
-let startY, isDraggingDebug = false;
 const debugPanel = document.getElementById('debugPanel');
+const debugToggle = document.getElementById('debugToggle');
 
-debugPanel.addEventListener('mousedown', (e) => {
-  if (e.target.id === 'debugToggle') return;
-  isDraggingDebug = true;
-  startY = e.clientY;
-  document.body.style.cursor = 'ns-resize';
-});
-
-document.addEventListener('mousemove', (e) => {
-  if (!isDraggingDebug) return;
-  const dy = startY - e.clientY;
-  let newHeight = debugPanel.offsetHeight + dy;
-  newHeight = Math.max(30, Math.min(newHeight, 300));
-  debugPanel.style.height = newHeight + 'px';
-  startY = e.clientY;
-});
-
-document.addEventListener('mouseup', () => {
-  isDraggingDebug = false;
-  document.body.style.cursor = 'default';
+debugToggle.addEventListener('click', () => {
+  debugPanel.classList.toggle('expanded');
+  if (debugPanel.classList.contains('expanded')) {
+    debugToggle.textContent = '🔽 Nascondi Debug';
+  } else {
+    debugToggle.textContent = '🔼 Mostra Debug';
+  }
 });
