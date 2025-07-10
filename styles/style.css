@@ -113,3 +113,30 @@ body.dark header button:hover { background: rgba(255,255,255,0.2); }
   border-radius: 0;
   z-index: 9999;
 }
+
+#debugPanel.fullscreen {
+  position: fixed;
+  top: 0;
+  height: 100vh !important;
+  border-radius: 0;
+  z-index: 9999;
+}
+
+.sidebar-hidden #editorArea {
+  width: 100%;
+}
+
+body.dark #sidebar {
+  background-color: #1b1b1b;
+  color: #eee;
+}
+
+body.dark #editorArea {
+  background-color: #1e1e1e;
+}
+
+body.dark .folder,
+body.dark .file,
+body.dark .project-name {
+  color: #ddd;
+}
